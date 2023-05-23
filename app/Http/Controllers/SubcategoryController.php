@@ -70,20 +70,20 @@ class SubcategoryController extends Controller
             $input['gambar'] = $nama_gambar;
         }
         
-        $category = Subcategory::create($input);
+        $Subcategory = Subcategory::create($input);
 
         return response()->json([
-            'data'=> $category
+            'data'=> $Subcategory
         ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Subcategory  $category
+     * @param  \App\Models\Subcategory  $Subcategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Subcategory $category)
+    public function show(Subcategory $Subcategory)
     {
         //
     }
@@ -91,10 +91,10 @@ class SubcategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Subcategory  $category
+     * @param  \App\Models\Subcategory  $Subcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Subcategory $category)
+    public function edit(Subcategory $Subcategory)
     {
         //
     }
@@ -103,10 +103,10 @@ class SubcategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Subcategory  $category
+     * @param  \App\Models\Subcategory  $Subcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subcategory $category)
+    public function update(Request $request, Subcategory $Subcategory)
     {
 
         $validator = Validator::make($request->all(), [
@@ -125,7 +125,7 @@ class SubcategoryController extends Controller
         $input = $request->all();
 
         if($request->has('gambar')) {
-            File::delete('uploads/' . $category->gambar);
+            File::delete('uploads/' . $Subcategory->gambar);
             $gambar = $request->file('gambar');
             $nama_gambar = time() . rand(1,9) . $gambar->getClientOriginalExtension();
             $gambar->move('uploads', $nama_gambar);
@@ -134,24 +134,24 @@ class SubcategoryController extends Controller
             unset($input['gambar']);
         }
 
-        $category->update($input);
+        $Subcategory->update($input);
 
         return response()->json([
             'message' => 'success',
-            'data' => $category
+            'data' => $Subcategory
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Subcategory  $category
+     * @param  \App\Models\Subcategory  $Subcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Subcategory $category)
+    public function destroy(Subcategory $Subcategory)
     {
-        File::delete('uploads/' . $category->gambar);
-        $category->delete();
+        File::delete('uploads/' . $Subcategory->gambar);
+        $Subcategory->delete();
 
         return response()->json([
             'message' => 'Success'
