@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 
 Route::group([
     'middleware' => 'api',
@@ -17,6 +19,7 @@ Route::group([
     'middleware' => 'api'
 ], function(){
     Route::resources([
-        'categories' => CategoryController::class
+        'categories' => CategoryController::class,
+        'subcategories' => SubcategoryController::class
         ]);
 });

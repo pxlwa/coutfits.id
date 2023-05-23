@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class SubcategoryController extends Controller
 {
 
     public function __construct()
@@ -22,10 +22,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $subcategories = Subcategory::all();
 
         return response()->json([
-            'data' => $categories
+            'data' => $subcategories
         ]);
     }
 
@@ -49,7 +49,8 @@ class CategoryController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'nama_kategori' => 'required',
+            'id_kategori' => 'required',
+            'nama_subkategori' => 'required',
             'deskripsi' => 'required',
             'gambar' => 'required|image|mimes:jpg,png,jpeg,webp'
         ]);
@@ -69,7 +70,7 @@ class CategoryController extends Controller
             $input['gambar'] = $nama_gambar;
         }
         
-        $category = Category::create($input);
+        $category = Subcategory::create($input);
 
         return response()->json([
             'data'=> $category
@@ -79,10 +80,10 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Subcategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Subcategory $category)
     {
         //
     }
@@ -90,10 +91,10 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Subcategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Subcategory $category)
     {
         //
     }
@@ -102,14 +103,15 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Subcategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Subcategory $category)
     {
 
         $validator = Validator::make($request->all(), [
-            'nama_kategori' => 'required',
+            'id_kategori' => 'required',
+            'nama_subkategori' => 'required',
             'deskripsi' => 'required',
         ]);
 
@@ -143,10 +145,10 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Subcategory  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Subcategory $category)
     {
         File::delete('uploads/' . $category->gambar);
         $category->delete();
